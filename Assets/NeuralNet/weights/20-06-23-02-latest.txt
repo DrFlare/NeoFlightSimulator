@@ -1,0 +1,16 @@
+3x10x4
+NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
+NaN, NaN, NaN, NaN
