@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.11257973, g: 0.41770256, b: 0.72310334, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,7 +135,7 @@ GameObject:
   - component: {fileID: 992835}
   - component: {fileID: 992834}
   m_Layer: 5
-  m_Name: DistInputField
+  m_Name: INP_Dist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,7 +311,7 @@ GameObject:
   - component: {fileID: 7384954}
   - component: {fileID: 7384953}
   m_Layer: 5
-  m_Name: CancelButton
+  m_Name: BTN_Cancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,7 +360,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7384954}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: CloseLevelSelectPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7384954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,7 +579,7 @@ GameObject:
   - component: {fileID: 41162532}
   - component: {fileID: 41162531}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LAB_Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -703,7 +714,7 @@ GameObject:
   - component: {fileID: 51168594}
   - component: {fileID: 51168593}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LAB_HumanSim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -839,7 +850,7 @@ GameObject:
   - component: {fileID: 81801417}
   - component: {fileID: 81801416}
   m_Layer: 5
-  m_Name: GenerateLevelsButton
+  m_Name: BTN_GenerateLevels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -852,14 +863,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81801414}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1436837321}
-  m_Father: {fileID: 1691557675}
-  m_RootOrder: 4
+  m_Father: {fileID: 849983231}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -910,13 +921,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: cfb02da5357556d4f9ab53ad779dee19, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: OpenGenerateLevelsPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -972,7 +983,7 @@ GameObject:
   - component: {fileID: 102822235}
   - component: {fileID: 102822234}
   m_Layer: 5
-  m_Name: PrefixLabel
+  m_Name: LAB_Prefix
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1259,7 +1270,7 @@ GameObject:
   - component: {fileID: 153228673}
   - component: {fileID: 153228672}
   m_Layer: 5
-  m_Name: LevelSelectLabel
+  m_Name: LAB_LevelSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1395,7 +1406,7 @@ GameObject:
   - component: {fileID: 153620990}
   - component: {fileID: 153620992}
   m_Layer: 5
-  m_Name: StartButton
+  m_Name: BTN_Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1503,7 +1514,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 153620990}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: StartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &153986321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,7 +1540,7 @@ GameObject:
   - component: {fileID: 153986324}
   - component: {fileID: 153986323}
   m_Layer: 5
-  m_Name: GenerateButton
+  m_Name: BTN_Generate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1587,7 +1610,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 153986324}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: GenerateLevels
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &153986324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,7 +1768,7 @@ GameObject:
   - component: {fileID: 271236735}
   - component: {fileID: 271236734}
   m_Layer: 5
-  m_Name: CancelButton
+  m_Name: BTN_Cancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1803,7 +1838,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 271236735}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: CloseTestModelPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &271236735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2129,7 +2176,7 @@ GameObject:
   - component: {fileID: 326739296}
   - component: {fileID: 326739298}
   m_Layer: 5
-  m_Name: TestModelButton
+  m_Name: BTN_TestModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2142,14 +2189,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326739294}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1440858519}
-  m_Father: {fileID: 1691557675}
-  m_RootOrder: 2
+  m_Father: {fileID: 849983231}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2238,13 +2285,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: cfb02da5357556d4f9ab53ad779dee19, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: OpenTestModelPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2470,7 +2517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &395818474
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2489,8 +2536,8 @@ RectTransform:
   - {fileID: 1989124662}
   - {fileID: 1296253114}
   - {fileID: 804407003}
-  m_Father: {fileID: 1691557675}
-  m_RootOrder: 9
+  m_Father: {fileID: 460769095}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2535,6 +2582,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395818473}
   m_CullTransparentMesh: 1
+--- !u!1 &460769094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 460769095}
+  m_Layer: 5
+  m_Name: Panels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &460769095
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460769094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 735795924}
+  - {fileID: 1410327585}
+  - {fileID: 1896307664}
+  - {fileID: 395818474}
+  m_Father: {fileID: 1691557675}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &517311892
 GameObject:
   m_ObjectHideFlags: 0
@@ -2873,7 +2960,7 @@ GameObject:
   - component: {fileID: 600501796}
   - component: {fileID: 600501795}
   m_Layer: 5
-  m_Name: LevelSelect
+  m_Name: LevelSelectDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3367,7 +3454,7 @@ GameObject:
   - component: {fileID: 665025191}
   - component: {fileID: 665025190}
   m_Layer: 5
-  m_Name: LevelCountLabel
+  m_Name: LAB_LevelCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3716,7 +3803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &735795924
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3735,8 +3822,8 @@ RectTransform:
   - {fileID: 1476328177}
   - {fileID: 1788965580}
   - {fileID: 271236733}
-  m_Father: {fileID: 1691557675}
-  m_RootOrder: 6
+  m_Father: {fileID: 460769095}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3793,7 +3880,7 @@ GameObject:
   - component: {fileID: 737116486}
   - component: {fileID: 737116485}
   m_Layer: 5
-  m_Name: EpochLabel
+  m_Name: LAB_Epoch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3929,7 +4016,7 @@ GameObject:
   - component: {fileID: 737641641}
   - component: {fileID: 737641643}
   m_Layer: 5
-  m_Name: LevelSelect
+  m_Name: LevelSelectDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4391,7 +4478,7 @@ GameObject:
   - component: {fileID: 761139510}
   - component: {fileID: 761139509}
   m_Layer: 5
-  m_Name: EpochInputField
+  m_Name: INP_Epoch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4811,7 +4898,7 @@ GameObject:
   - component: {fileID: 804407005}
   - component: {fileID: 804407004}
   m_Layer: 5
-  m_Name: CancelButton
+  m_Name: BTN_Cancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4881,7 +4968,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 804407005}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: CloseTrainModelPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &804407005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4920,6 +5019,47 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804407002}
   m_CullTransparentMesh: 1
+--- !u!1 &849983230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 849983231}
+  m_Layer: 5
+  m_Name: Main Menu Buttons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &849983231
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849983230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2128648428}
+  - {fileID: 326739295}
+  - {fileID: 1899023692}
+  - {fileID: 81801415}
+  - {fileID: 2103662517}
+  m_Father: {fileID: 1691557675}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &862310029
 GameObject:
   m_ObjectHideFlags: 0
@@ -6000,7 +6140,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1023512581
 GameObject:
@@ -6353,7 +6493,7 @@ GameObject:
   - component: {fileID: 1117035538}
   - component: {fileID: 1117035537}
   m_Layer: 5
-  m_Name: CancelButton
+  m_Name: BTN_Cancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6423,7 +6563,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1117035538}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: CloseGenerateLevelsPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1117035538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6474,7 +6626,7 @@ GameObject:
   - component: {fileID: 1136810723}
   - component: {fileID: 1136810722}
   m_Layer: 5
-  m_Name: RingCountLabel
+  m_Name: LAB_RingCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6697,7 +6849,7 @@ GameObject:
   - component: {fileID: 1156107027}
   - component: {fileID: 1156107026}
   m_Layer: 5
-  m_Name: MaxAngleLabel
+  m_Name: LAB_MaxAngle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7221,7 +7373,7 @@ GameObject:
   - component: {fileID: 1296253116}
   - component: {fileID: 1296253115}
   m_Layer: 5
-  m_Name: StartButton
+  m_Name: BTN_Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7291,7 +7443,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1296253116}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: StartTrainingSimulation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1296253116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7552,7 +7716,7 @@ GameObject:
   - component: {fileID: 1355798586}
   - component: {fileID: 1355798585}
   m_Layer: 5
-  m_Name: PrefixInputField
+  m_Name: INP_Prefix
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7880,7 +8044,7 @@ GameObject:
   - component: {fileID: 1396334480}
   - component: {fileID: 1396334482}
   m_Layer: 5
-  m_Name: MaxAngleInputField
+  m_Name: INP_MaxAngle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8092,7 +8256,7 @@ GameObject:
   - component: {fileID: 1405403889}
   - component: {fileID: 1405403888}
   m_Layer: 5
-  m_Name: FramesLabel
+  m_Name: LAB_Frames
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8425,7 +8589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1410327585
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8433,7 +8597,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410327584}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8452,8 +8616,8 @@ RectTransform:
   - {fileID: 1396334479}
   - {fileID: 153986322}
   - {fileID: 1117035536}
-  m_Father: {fileID: 1691557675}
-  m_RootOrder: 7
+  m_Father: {fileID: 460769095}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8547,7 +8711,7 @@ GameObject:
   - component: {fileID: 1436837323}
   - component: {fileID: 1436837322}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LAB_GenerateLevels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8719,7 +8883,7 @@ GameObject:
   - component: {fileID: 1440858521}
   - component: {fileID: 1440858520}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LAB_TestModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8982,7 +9146,7 @@ GameObject:
   - component: {fileID: 1476328178}
   - component: {fileID: 1476328180}
   m_Layer: 5
-  m_Name: WeightsSelect
+  m_Name: WeightsSelectDropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9168,7 +9332,7 @@ GameObject:
   - component: {fileID: 1508545881}
   - component: {fileID: 1508545880}
   m_Layer: 5
-  m_Name: LevelSelectLabel
+  m_Name: LAB_LevelSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9304,7 +9468,7 @@ GameObject:
   - component: {fileID: 1525042432}
   - component: {fileID: 1525042431}
   m_Layer: 5
-  m_Name: LevelInputField
+  m_Name: INP_Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9867,7 +10031,7 @@ GameObject:
   - component: {fileID: 1613917624}
   - component: {fileID: 1613917623}
   m_Layer: 5
-  m_Name: DistLabel
+  m_Name: LAB_Dist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10580,7 +10744,7 @@ GameObject:
   - component: {fileID: 1676543707}
   - component: {fileID: 1676543706}
   m_Layer: 5
-  m_Name: RingInputField
+  m_Name: INP_Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10755,7 +10919,7 @@ GameObject:
   - component: {fileID: 1684873472}
   - component: {fileID: 1684873471}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LAB_Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10954,6 +11118,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -10971,17 +11136,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 41162530}
-  - {fileID: 2128648428}
-  - {fileID: 326739295}
-  - {fileID: 1899023692}
-  - {fileID: 81801415}
-  - {fileID: 2103662517}
-  - {fileID: 735795924}
-  - {fileID: 1410327585}
-  - {fileID: 1896307664}
-  - {fileID: 395818474}
+  - {fileID: 849983231}
+  - {fileID: 460769095}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11152,16 +11310,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b339f05b7d7db43bc277d82a00e955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainModelButton: {fileID: 2128648431}
-  testModelButton: {fileID: 326739298}
-  startHumanSimulationButton: {fileID: 1899023693}
-  quitButton: {fileID: 2103662514}
   testNetLevelSelect: {fileID: 600501795}
   weightsSelect: {fileID: 1476328180}
   testModelPanel: {fileID: 735795923}
-  startTestButton: {fileID: 1788965581}
-  cancelTestButton: {fileID: 271236734}
-  generateLevelsButton: {fileID: 81801416}
   generateLevelsPanel: {fileID: 1410327584}
   levelCountInputField: {fileID: 1525042431}
   ringCountInputField: {fileID: 1676543706}
@@ -11169,17 +11320,11 @@ MonoBehaviour:
   avgDistInputField: {fileID: 992834}
   distVarInputField: {fileID: 2143743683}
   maxAngleInputField: {fileID: 1396334482}
-  confirmGenerateButton: {fileID: 153986323}
-  cancelGenerateButton: {fileID: 1117035537}
   levelSelectPanel: {fileID: 1896307663}
   levelSelect: {fileID: 737641643}
-  startLevelButton: {fileID: 153620992}
-  cancelLevelButton: {fileID: 7384953}
   trainPanel: {fileID: 395818473}
   epochInputField: {fileID: 761139509}
   framesInputField: {fileID: 1989124663}
-  startTrainButton: {fileID: 1296253115}
-  cancelTrainButton: {fileID: 804407004}
   context: {fileID: 11400000, guid: 2b4d5ee4f7104504da66d25c421784f6, type: 2}
 --- !u!4 &1752036943
 Transform:
@@ -11194,7 +11339,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1753202082
 GameObject:
@@ -11361,7 +11506,7 @@ GameObject:
   - component: {fileID: 1788965582}
   - component: {fileID: 1788965581}
   m_Layer: 5
-  m_Name: StartButton
+  m_Name: BTN_Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11431,7 +11576,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1788965582}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: StartAITest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1788965582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11779,7 +11936,7 @@ GameObject:
   - component: {fileID: 1895168003}
   - component: {fileID: 1895168002}
   m_Layer: 5
-  m_Name: DistVarLabel
+  m_Name: LAB_DistVar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11919,7 +12076,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1896307664
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11936,8 +12093,8 @@ RectTransform:
   - {fileID: 737641640}
   - {fileID: 153620989}
   - {fileID: 7384956}
-  m_Father: {fileID: 1691557675}
-  m_RootOrder: 8
+  m_Father: {fileID: 460769095}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11995,7 +12152,7 @@ GameObject:
   - component: {fileID: 1899023694}
   - component: {fileID: 1899023693}
   m_Layer: 5
-  m_Name: HumanSimulationButton
+  m_Name: BTN_HumanSim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12008,14 +12165,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899023691}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 51168592}
-  m_Father: {fileID: 1691557675}
-  m_RootOrder: 3
+  m_Father: {fileID: 849983231}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12066,13 +12223,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: cfb02da5357556d4f9ab53ad779dee19, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: OpenLevelSelectPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12580,7 +12737,7 @@ GameObject:
   - component: {fileID: 1989124664}
   - component: {fileID: 1989124663}
   m_Layer: 5
-  m_Name: FramesInputField
+  m_Name: INP_Frames
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12911,7 +13068,7 @@ GameObject:
   - component: {fileID: 2008047638}
   - component: {fileID: 2008047637}
   m_Layer: 5
-  m_Name: WeightsSelectLabel
+  m_Name: LAB_WeightsSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13047,7 +13204,7 @@ GameObject:
   - component: {fileID: 2103662515}
   - component: {fileID: 2103662514}
   m_Layer: 5
-  m_Name: ExitButton
+  m_Name: BTN_Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13097,13 +13254,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: cfb02da5357556d4f9ab53ad779dee19, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13154,14 +13311,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103662513}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1684873470}
-  m_Father: {fileID: 1691557675}
-  m_RootOrder: 5
+  m_Father: {fileID: 849983231}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13233,7 +13390,7 @@ GameObject:
   - component: {fileID: 2122331172}
   - component: {fileID: 2122331171}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LAB_TrainModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13369,7 +13526,7 @@ GameObject:
   - component: {fileID: 2128648429}
   - component: {fileID: 2128648431}
   m_Layer: 5
-  m_Name: TrainModelButton
+  m_Name: BTN_TrainModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13382,14 +13539,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128648427}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2122331170}
-  m_Father: {fileID: 1691557675}
-  m_RootOrder: 1
+  m_Father: {fileID: 849983231}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13478,13 +13635,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: cfb02da5357556d4f9ab53ad779dee19, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1752036942}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: OpenTrainModelPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13503,7 +13660,7 @@ GameObject:
   - component: {fileID: 2143743681}
   - component: {fileID: 2143743683}
   m_Layer: 5
-  m_Name: DistVarInputField
+  m_Name: INP_DistVar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

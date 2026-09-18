@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
 using System.Text;
+using UnityEngine;
 
-namespace FlightSimulator
+namespace Level
 {
     public static class LevelGenerator
     {
-        public static void generateLevels(int levelCount, int ringDist, int ringDistVariance, float maxAngle, int ringCount, string prefix)
+        public static void GenerateLevels(int levelCount, int ringDist, int ringDistVariance, float maxAngle, int ringCount, string prefix)
         {
             Vector3 position;
             Quaternion rotation;

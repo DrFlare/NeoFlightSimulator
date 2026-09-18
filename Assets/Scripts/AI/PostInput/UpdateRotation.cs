@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
-using Matrix4x4 = System.Numerics.Matrix4x4;
 using Quaternion = UnityEngine.Quaternion;
-using Vector3 = UnityEngine.Vector3;
 
-namespace FlightSimulator.AI
+namespace AI.PostInput
 {
     public class UpdateRotation : Layer
     {

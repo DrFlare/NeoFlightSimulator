@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace FlightSimulator
+namespace Level
 {
     public class Ring
     {
         public Ring(Pose pose)
         {
-            this.Pose = pose;
+            Pose = pose;
         }
 
         public Pose Pose { get; }

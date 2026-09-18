@@ -1,7 +1,8 @@
 ﻿using System;
+using Level;
 using UnityEngine;
 
-namespace FlightSimulator.AI
+namespace AI.PostInput
 {
     public class RingLocalizer : Layer
     {

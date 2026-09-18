@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using PlaneInput;
+using UnityEngine;
 
-namespace FlightSimulator
+namespace Simulator
 {
     [CreateAssetMenu(fileName = "SimulationContext", menuName = "ScriptableObjects/SimulationContext", order = 1)]
     public class SimulationContext : ScriptableObject

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FlightSimulator.AI
+namespace AI.PostInput
 {
     public class UpdatePosition : Layer
     {

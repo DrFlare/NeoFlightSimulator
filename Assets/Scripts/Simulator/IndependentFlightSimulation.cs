@@ -1,7 +1,7 @@
-﻿using FlightSimulator.AI;
-using UnityEngine;
+﻿using AI;
+using PlaneInput;
 
-namespace FlightSimulator
+namespace Simulator
 {
     public class IndependentFlightSimulation
     {

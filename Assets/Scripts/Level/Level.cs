@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
-namespace FlightSimulator
+namespace Level
 {
     public class Level
     {

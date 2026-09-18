@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using AI.Activation;
+using AI.PostInput;
 using UnityEngine;
 
-namespace FlightSimulator.AI
+namespace AI
 {
     public class NeuralNet
     {

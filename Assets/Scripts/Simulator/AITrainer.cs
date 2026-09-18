@@ -1,77 +1,80 @@
-using System.Linq;
-using FlightSimulator;
+using Level;
+using PlaneInput;
 using UnityEngine;
 
-public class AITrainer
+namespace Simulator
 {
-    private int epochNo = 200; // fallback
-    private int frameNo = 100; // fallback
-
-    private AIPlaneInput input = new();
-
-    private IndependentFlightSimulation flightSimulation;
-
-    private PlaneSimulator sim;
-
-    private float lowestTrainLoss = float.MaxValue;
-    private int highestPassedRings = 0;
-
-    public void startTrainingSimulation(int numEpochs, int numFrames)
+    public class AITrainer
     {
-        var random = new System.Random();
-        
-        epochNo = numEpochs;
-        frameNo = numFrames;
+        private int epochNo = 200; // fallback
+        private int frameNo = 100; // fallback
 
-        var list = LevelLoader.getLevelNames();
+        private AIPlaneInput input = new();
 
-        highestPassedRings = int.MinValue;
-        lowestTrainLoss = float.MaxValue;
-        sim = LevelLoader.DummyPlaneSimulator(LevelLoader.loadLevel(list[0]), input);
-        
-        flightSimulation =
-            new IndependentFlightSimulation(sim, frameNo);
+        private IndependentFlightSimulation flightSimulation;
 
-        for (var i = 0; i < epochNo; i++)
+        private PlaneSimulator sim;
+
+        private float lowestTrainLoss = float.MaxValue;
+        private int highestPassedRings = 0;
+
+        public void startTrainingSimulation(int numEpochs, int numFrames)
         {
-            var next = random.Next(list.Count);
-            Debug.Log("Next stage: " + next);
-            sim.changeLevel(LevelLoader.loadLevel(list[next]));
-            flightSimulation.reset(frameNo * (1 + 5 * i / epochNo));
-            flightSimulation.startTestSimulation();
+            var random = new System.Random();
+        
+            epochNo = numEpochs;
+            frameNo = numFrames;
 
-            if (sim.getPasseedRings() > highestPassedRings)
-            {
-                highestPassedRings = sim.getPasseedRings();
-                input.Net.updateBestWeights();
-                // za spremanje svake granice pri otkrivanju najboljeg rjesenja:
-                input.Net.saveWeights("PASSES_" + sim.getPasseedRings()); 
-            }
+            var list = LevelLoader.getLevelNames();
 
-            if (input.Net.LowestLoss < lowestTrainLoss)
+            highestPassedRings = int.MinValue;
+            lowestTrainLoss = float.MaxValue;
+            sim = LevelLoader.DummyPlaneSimulator(LevelLoader.loadLevel(list[0]), input);
+        
+            flightSimulation =
+                new IndependentFlightSimulation(sim, frameNo);
+
+            for (var i = 0; i < epochNo; i++)
             {
-                lowestTrainLoss = input.Net.LowestLoss;
-                if (sim.getPasseedRings() == highestPassedRings)
+                var next = random.Next(list.Count);
+                Debug.Log("Next stage: " + next);
+                sim.changeLevel(LevelLoader.loadLevel(list[next]));
+                flightSimulation.reset(frameNo * (1 + 5 * i / epochNo));
+                flightSimulation.startTestSimulation();
+
+                if (sim.getPasseedRings() > highestPassedRings)
                 {
+                    highestPassedRings = sim.getPasseedRings();
                     input.Net.updateBestWeights();
+                    // za spremanje svake granice pri otkrivanju najboljeg rjesenja:
+                    input.Net.saveWeights("PASSES_" + sim.getPasseedRings()); 
                 }
+
+                if (input.Net.LowestLoss < lowestTrainLoss)
+                {
+                    lowestTrainLoss = input.Net.LowestLoss;
+                    if (sim.getPasseedRings() == highestPassedRings)
+                    {
+                        input.Net.updateBestWeights();
+                    }
+                }
+
+
+                Debug.Log(
+                    "Epoch " + i +
+                    ": passed rings = " + sim.getPasseedRings() +
+                    ", most passed rings = " + highestPassedRings +
+                    ", last loss = " + input.Net.LastLoss +
+                    ", lowest epoch loss = " + input.Net.LowestLoss +
+                    ", lowest train loss = " + lowestTrainLoss);
+
             }
 
 
-            Debug.Log(
-                "Epoch " + i +
-                ": passed rings = " + sim.getPasseedRings() +
-                ", most passed rings = " + highestPassedRings +
-                ", last loss = " + input.Net.LastLoss +
-                ", lowest epoch loss = " + input.Net.LowestLoss +
-                ", lowest train loss = " + lowestTrainLoss);
-
+            input.Net.saveWeights("latest");
+            input.Net.saveBestWeights("best");
+            Debug.Log("TRAINING COMPLETE");
+            flightSimulation.stopTestSimulation();
         }
-
-
-        input.Net.saveWeights("latest");
-        input.Net.saveBestWeights("best");
-        Debug.Log("TRAINING COMPLETE");
-        flightSimulation.stopTestSimulation();
     }
 }

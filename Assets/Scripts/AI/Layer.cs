@@ -1,4 +1,4 @@
-﻿namespace FlightSimulator.AI
+﻿namespace AI
 {
     public interface Layer
     {

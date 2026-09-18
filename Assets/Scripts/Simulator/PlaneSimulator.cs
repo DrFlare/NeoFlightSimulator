@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FlightSimulator.AI;
+using AI.PostInput;
+using Level;
+using PlaneInput;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace FlightSimulator
+namespace Simulator
 {
     public class PlaneSimulator
     {
-        private PlaneInput input;
+        private IPlaneInput input;
 
         private Pose initialPose;
 
         private Pose pose;
 
-        private Level level;
+        private Level.Level level;
 
         private CapsuleCollider planeCollider;
 
@@ -32,8 +33,8 @@ namespace FlightSimulator
 
         private bool visual = false;
         
-        public PlaneSimulator(PlaneInput input, Pose pose, float velocity, float yawSpeed, float pitchSpeed,
-            float rollSpeed, Level level)
+        public PlaneSimulator(IPlaneInput input, Pose pose, float velocity, float yawSpeed, float pitchSpeed,
+            float rollSpeed, Level.Level level)
         {
             this.input = input;
             initialPose = pose;
@@ -107,7 +108,7 @@ namespace FlightSimulator
 
                 if (currentRing.MoveNext())
                 {
-                    Debug.Log("prsten rijesen! sljedeci je na " + currentRing.Current.Pose.position);
+                    // Debug.Log("Ring passed! Next: " + currentRing.Current.Pose.position);
                     updateCurrentRingBounds();
                     
                     if (visual)
@@ -125,7 +126,7 @@ namespace FlightSimulator
             }
         }
 
-        public void changeLevel(Level level)
+        public void changeLevel(Level.Level level)
         {
             this.level = level;
             reset();
@@ -156,7 +157,7 @@ namespace FlightSimulator
         
         public Pose Pose => pose;
 
-        public PlaneInput Input => input;
+        public IPlaneInput Input => input;
 
         public List<Ring>.Enumerator CurrentRing => currentRing;
 

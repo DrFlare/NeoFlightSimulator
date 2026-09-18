@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using PlaneInput;
+using Simulator;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace FlightSimulator
+namespace Level
 {
     public static class LevelLoader
     {
@@ -38,7 +40,7 @@ namespace FlightSimulator
             );
         }
 
-        public static Level loadLevel(string name)
+        public static global::Level.Level loadLevel(string name)
         {
             string levelPath = "Assets/Levels/" + name + ".txt";
             // MonoBehaviour.print(levelPath);
@@ -59,7 +61,7 @@ namespace FlightSimulator
                 rings.Add(new Ring(pose));
             }
 
-            return new Level(rings);
+            return new global::Level.Level(rings);
         }
 
         public static List<string> getLevelNames()
@@ -79,7 +81,7 @@ namespace FlightSimulator
             return levels;
         }
 
-        public static PlaneSimulator DummyPlaneSimulator(Level level, AIPlaneInput input)
+        public static PlaneSimulator DummyPlaneSimulator(global::Level.Level level, AIPlaneInput input)
         {
             return new PlaneSimulator(input, new Pose(Vector3.zero, Quaternion.identity), initialVelocity, yawSpeed, pitchSpeed, rollSpeed, level);
         }

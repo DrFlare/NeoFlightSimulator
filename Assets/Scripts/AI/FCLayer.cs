@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
-using UnityEngine;
-using UnityEngine.Assertions;
 
-namespace FlightSimulator.AI
+namespace AI
 {
     public class FCLayer : Layer
     {

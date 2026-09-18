@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace FlightSimulator.AI
+namespace AI.PostInput
 {
     public class RotDiff : Layer
     {
