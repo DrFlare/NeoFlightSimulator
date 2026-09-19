@@ -4,29 +4,38 @@ namespace Controllers
 {
     public class CameraController : MonoBehaviour
     {
-        public GameObject plane;
-        public float distance = 6;
-        public float elevation = 3;
-        public float angle = 10;
 
-        private Camera cam;
+        #region Fields
 
-        // Start is called before the first frame update
-        void Start()
+        private Camera _cam;
+
+        #endregion
+
+        #region Serialize Fields
+        
+        [SerializeField] private GameObject plane;
+        [SerializeField] private float distance = 6;
+        [SerializeField] private float elevation = 3;
+        [SerializeField] private float angle = 10;
+
+        #endregion
+
+        #region Unity Functions
+
+        private void Start()
         {
-            cam = Camera.main;
+            _cam = Camera.main;
         }
 
-        // Update is called once per frame
-        void FixedUpdate()
+        private void FixedUpdate()
         {
-            cam.transform.position = plane.transform.position - plane.transform.forward * distance;
-
-            cam.transform.Translate(elevation * Vector3.up);
-        
-            cam.transform.rotation = plane.transform.rotation;
-                                 
-            cam.transform.Rotate(Vector3.right, angle);        
+            var camTransform = _cam.transform;
+            
+            // TODO: do this better
+            camTransform.position = plane.transform.position - plane.transform.forward * distance;
+            camTransform.Translate(elevation * Vector3.up);
+            camTransform.rotation = plane.transform.rotation;
+            camTransform.Rotate(Vector3.right, angle);        
 
             // print("Camera position: " + cam.transform.position);
             // print("Camera rotation: " + cam.transform.rotation.eulerAngles);
@@ -34,5 +43,7 @@ namespace Controllers
             // print("Plane position: " + plane.transform.position);
             // print("Plane rotation: " + plane.transform.rotation.eulerAngles);
         }
+
+        #endregion
     }
 }

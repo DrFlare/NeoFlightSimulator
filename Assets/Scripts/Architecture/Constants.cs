@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Architecture
+﻿namespace Architecture
 {
     public static class Constants
     {
-        public static String MainMenuSceneName = "MenuScene";
-        public static String SimulationSceneName = "SimulationScene";
+        public const string MainMenuSceneName = "MenuScene";
+        public const string SimulationSceneName = "SimulationScene";
     }
 }

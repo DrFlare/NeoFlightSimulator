@@ -4,11 +4,11 @@ namespace Level
 {
     public class Level
     {
+        public List<Ring> Rings { get; }
+        
         public Level(List<Ring> rings)
         {
-            this.Rings = rings;
+            Rings = rings;
         }
-
-        public List<Ring> Rings { get; }
     }
 }

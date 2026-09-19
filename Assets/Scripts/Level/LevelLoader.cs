@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using PlaneInput;
@@ -11,17 +10,24 @@ namespace Level
 {
     public static class LevelLoader
     {
-        private static List<string> levels;
+        #region Constants
+        
+        private const float InitialVelocity = 2f;
+        private const float YawSpeed = 7f;
+        private const float PitchSpeed = 15f;
+        private const float RollSpeed = 15f;
 
-        private static float initialVelocity = 2f;
+        #endregion
+        
+        #region Fields
 
-        private static float yawSpeed = 7f;
+        private static List<string> _levels;
 
-        private static float pitchSpeed = 15f;
+        #endregion
 
-        private static float rollSpeed = 15f;
+        #region Functions
 
-        private static void generateFromString(out Pose pose, string data)
+        private static void GenerateFromString(out Pose pose, string data)
         {
             var split = data.Split(";");
             Assert.AreEqual(split.Length, 2);
@@ -40,50 +46,50 @@ namespace Level
             );
         }
 
-        public static global::Level.Level loadLevel(string name)
+        public static Level LoadLevel(string name)
         {
-            string levelPath = "Assets/Levels/" + name + ".txt";
+            var levelPath = "Assets/Levels/" + name + ".txt";
             // MonoBehaviour.print(levelPath);
             var lines = File.ReadAllLines(levelPath);
 
-            List<Ring> rings = new List<Ring>();
+            var rings = new List<Ring>();
 
             foreach (var line in lines)
             {
-                if (String.IsNullOrWhiteSpace(line))
+                if (string.IsNullOrWhiteSpace(line))
                 {
                     continue;
                 }
 
-                Pose pose = new Pose();
-                generateFromString(out pose, line);
+                GenerateFromString(out var pose, line);
 
                 rings.Add(new Ring(pose));
             }
 
-            return new global::Level.Level(rings);
+            return new Level(rings);
         }
 
-        public static List<string> getLevelNames()
+        public static List<string> GetLevelNames()
         {
-            if (levels == null)
+            if (_levels != null) return _levels;
+            _levels = new List<string>();
+            foreach (var file in Directory.GetFiles("Assets/levels/"))
             {
-                levels = new List<string>();
-                foreach (var file in Directory.GetFiles("Assets/levels/"))
+                if (!file.Contains(".meta"))
                 {
-                    if (!file.Contains(".meta"))
-                    {
-                        levels.Add(Regex.Replace(file, ".*/", "").Replace(".txt", ""));
-                    }
+                    _levels.Add(Regex.Replace(file, ".*/", "").Replace(".txt", ""));
                 }
             }
 
-            return levels;
+            return _levels;
         }
 
-        public static PlaneSimulator DummyPlaneSimulator(global::Level.Level level, AIPlaneInput input)
+        public static PlaneSimulator DummyPlaneSimulator(Level level, AIPlaneInput input)
         {
-            return new PlaneSimulator(input, new Pose(Vector3.zero, Quaternion.identity), initialVelocity, yawSpeed, pitchSpeed, rollSpeed, level);
+            return new PlaneSimulator(input, new Pose(Vector3.zero, Quaternion.identity), 
+                InitialVelocity, YawSpeed, PitchSpeed, RollSpeed, level);
         }
+
+        #endregion
     }
 }

@@ -6,22 +6,22 @@ namespace PlaneInput
     {
         // TODO: Refactor input handling to use a unified input controller
 
-        public float getHorizontal()
+        public float GetHorizontal()
         {
             return CrossPlatformInputManager.GetAxis("Horizontal");
         }
 
-        public float getVertical()
+        public float GetVertical()
         {
             return CrossPlatformInputManager.GetAxis("Vertical");
         }
 
-        public float getRudder()
+        public float GetRudder()
         {
             return CrossPlatformInputManager.GetAxis("Rudder");
         }
 
-        public float getThrust()
+        public float GetThrust()
         {
             return CrossPlatformInputManager.GetAxis("Throttle");
         }

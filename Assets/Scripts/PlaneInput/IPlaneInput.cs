@@ -2,9 +2,9 @@
 {
     public interface IPlaneInput
     {
-        float getHorizontal();
-        float getVertical();
-        float getRudder();
-        float getThrust();
+        float GetHorizontal();
+        float GetVertical();
+        float GetRudder();
+        float GetThrust();
     }
 }

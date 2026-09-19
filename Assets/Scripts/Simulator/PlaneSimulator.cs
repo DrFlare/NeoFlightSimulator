@@ -11,66 +11,76 @@ namespace Simulator
 {
     public class PlaneSimulator
     {
-        private IPlaneInput input;
+        #region Fields
 
-        private Pose initialPose;
-
-        private Pose pose;
-
-        private Level.Level level;
-
-        private CapsuleCollider planeCollider;
-
-        private List<Ring>.Enumerator currentRing;
-        private Bounds currentRingBounds;
-
-        private UpdateRotation nextRot;
-        private UpdatePosition nextPos;
-        private RingLocalizer ringLoc;
-
-        private List<GameObject> ringObjects;
-        private TMP_Text scoreCounter;
-
-        private bool visual = false;
+        private IPlaneInput _input;
+        private Pose _initialPose;
+        private Pose _pose;
+        private Level.Level _level;
+        private CapsuleCollider _planeCollider;
+        private List<Ring>.Enumerator _currentRing;
+        private Bounds _currentRingBounds;
+        private UpdateRotation _nextRot;
+        private UpdatePosition _nextPos;
+        private RingLocalizer _ringLoc;
+        private List<GameObject> _ringObjects;
+        private TMP_Text _scoreCounter;
+        private bool _isVisual;
         
+        #endregion
+
+        #region Properties
+        
+        public Pose Pose => _pose;
+        public IPlaneInput Input => _input;
+        public List<Ring>.Enumerator CurrentRing => _currentRing;
+        public bool IsLevelComplete { get; private set; }
+
+        #endregion
+        
+        #region Constructors
+
         public PlaneSimulator(IPlaneInput input, Pose pose, float velocity, float yawSpeed, float pitchSpeed,
             float rollSpeed, Level.Level level)
         {
-            this.input = input;
-            initialPose = pose;
-            this.level = level;
+            this._input = input;
+            _initialPose = pose;
+            this._level = level;
 
-            nextRot = new UpdateRotation(yawSpeed, pitchSpeed, rollSpeed);
-            nextPos = new UpdatePosition(velocity);
-            ringLoc = new RingLocalizer();
+            _nextRot = new UpdateRotation(yawSpeed, pitchSpeed, rollSpeed);
+            _nextPos = new UpdatePosition(velocity);
+            _ringLoc = new RingLocalizer();
 
-            reset();
+            Reset();
+        }
+
+        #endregion
+
+        #region Functions
+
+        public (Vector3, UpdatePosition) CalculateNextPos(Vector3 initial, Quaternion orientation, float thrust)
+        {
+            return (_nextPos.calculateNextPos(initial, orientation, thrust), _nextPos);
         }
         
-        public (Vector3, UpdatePosition) calculateNextPos(Vector3 initial, Quaternion orientation, float thrust)
+        public (Quaternion, UpdateRotation) CalculateNextRot(Quaternion initial, float x, float y, float z)
         {
-            return (nextPos.calculateNextPos(initial, orientation, thrust), nextPos);
+            return (_nextRot.calculateNextRot(initial, x, y, z), _nextRot);
         }
 
-
-        public (Quaternion, UpdateRotation) calculateNextRot(Quaternion initial, float x, float y, float z)
+        private Bounds PlaneBounds()
         {
-            return (nextRot.calculateNextRot(initial, x, y, z), nextRot);
+            return new Bounds(_pose.position + new Vector3(0, 0.6f, -0.2f), new Vector3(1, 1, 2));
         }
 
-        private Bounds planeBounds()
+        private void UpdateCurrentRingBounds()
         {
-            return new Bounds(pose.position + new Vector3(0, 0.6f, -0.2f), new Vector3(1, 1, 2));
-        }
-
-        private void updateCurrentRingBounds()
-        {
-            var xRatio = (currentRing.Current.Pose.rotation * (10f * Vector3.right));
-            var yRatio = (currentRing.Current.Pose.rotation * (10f * Vector3.up));
-            var zRatio = (currentRing.Current.Pose.rotation * (3f * Vector3.forward));
+            var xRatio = (_currentRing.Current.Pose.rotation * (10f * Vector3.right));
+            var yRatio = (_currentRing.Current.Pose.rotation * (10f * Vector3.up));
+            var zRatio = (_currentRing.Current.Pose.rotation * (3f * Vector3.forward));
             
-            currentRingBounds = new Bounds(
-                currentRing.Current.Pose.position,
+            _currentRingBounds = new Bounds(
+                _currentRing.Current.Pose.position,
                 new Vector3(
                     Math.Abs(xRatio.x) + Math.Abs(yRatio.x) + Math.Abs(zRatio.x), 
                     Math.Abs(xRatio.y) + Math.Abs(yRatio.y) + Math.Abs(zRatio.y), 
@@ -79,107 +89,103 @@ namespace Simulator
             );
         }
 
-        public void tick()
+        public void Tick()
         {
-            if (input is AIPlaneInput)
+            if (_input is AIPlaneInput)
             {
-                ((AIPlaneInput)input).tick(getLocalRingPos(pose.position, pose.rotation));
+                ((AIPlaneInput)_input).Tick(GetLocalRingPos(_pose.position, _pose.rotation));
             }
 
-            pose.rotation = calculateNextRot(pose.rotation, input.getVertical(), input.getRudder(),
-                input.getHorizontal()).Item1;
+            _pose.rotation = CalculateNextRot(_pose.rotation, _input.GetVertical(), _input.GetRudder(),
+                _input.GetHorizontal()).Item1;
 
-            pose.position = calculateNextPos(pose.position, pose.rotation, input.getThrust()).Item1;
+            _pose.position = CalculateNextPos(_pose.position, _pose.rotation, _input.GetThrust()).Item1;
 
             // COLLISION DETECTION
-            if (LevelComplete)
+            if (IsLevelComplete)
             {
                 return;
             }
 
-            if (planeBounds().Intersects(currentRingBounds))
+            if (PlaneBounds().Intersects(_currentRingBounds))
             {
-                if (visual)
+                if (_isVisual)
                 {
-                    var selectedRing = ringObjects.FirstOrDefault(r => r.transform.position == currentRing.Current.Pose.position);
+                    var selectedRing = _ringObjects.FirstOrDefault(
+                        r => r.transform.position == _currentRing.Current.Pose.position);
                     selectedRing.GetComponent<Renderer>().material.color = Color.green;   // ovako se mijenja boja prstena 
                 }
 
 
-                if (currentRing.MoveNext())
+                if (_currentRing.MoveNext())
                 {
                     // Debug.Log("Ring passed! Next: " + currentRing.Current.Pose.position);
-                    updateCurrentRingBounds();
+                    UpdateCurrentRingBounds();
                     
-                    if (visual)
+                    if (_isVisual)
                     {
-                        scoreCounter.text = getPasseedRings() + "/" + level.Rings.Count;
-                        var selectedRing = ringObjects.FirstOrDefault(r => r.transform.position == currentRing.Current.Pose.position);
+                        _scoreCounter.text = GetPassedRings() + "/" + _level.Rings.Count;
+                        var selectedRing = _ringObjects.FirstOrDefault(
+                            r => r.transform.position == _currentRing.Current.Pose.position);
                         selectedRing.GetComponent<Renderer>().material.color = Color.magenta;   // ovako se mijenja boja prstena 
                     }
                 }
                 else
                 {
-                    LevelComplete = true;
+                    IsLevelComplete = true;
                     Debug.Log("SVI PRSTENI ZAVRSENI!");
                 }
             }
         }
 
-        public void changeLevel(Level.Level level)
+        public void ChangeLevel(Level.Level level)
         {
-            this.level = level;
-            reset();
+            _level = level;
+            Reset();
         }
 
-        public void reset()
+        public void Reset()
         {
-            pose = initialPose;
-            currentRing = level.Rings.GetEnumerator();
-            currentRing.MoveNext();
-            updateCurrentRingBounds();
+            _pose = _initialPose;
+            _currentRing = _level.Rings.GetEnumerator();
+            _currentRing.MoveNext();
+            UpdateCurrentRingBounds();
         }
 
-        public void updateTransform(Transform transform)
+        public void UpdateTransform(Transform transform)
         {
-            transform.position = pose.position;
-            transform.rotation = pose.rotation;
+            transform.position = _pose.position;
+            transform.rotation = _pose.rotation;
         }
 
-        public void setSceneObjects(List<GameObject> ringObjects, TMP_Text scoreCounter)
+        public void SetSceneObjects(List<GameObject> ringObjects, TMP_Text scoreCounter)
         {
-            this.ringObjects = ringObjects;
-            this.scoreCounter = scoreCounter;
+            _ringObjects = ringObjects;
+            _scoreCounter = scoreCounter;
             scoreCounter.text = "0/" + ringObjects.Count;
             ringObjects[0].GetComponent<Renderer>().material.color = Color.red;   // ovako se mijenja boja prstena 
-            visual = true;
-        }
-        
-        public Pose Pose => pose;
-
-        public IPlaneInput Input => input;
-
-        public List<Ring>.Enumerator CurrentRing => currentRing;
-
-        public bool LevelComplete { get; private set; } = false;
-
-        public int getPasseedRings()
-        {
-            if (currentRing.Current != null) return level.Rings.IndexOf(currentRing.Current);
-            LevelComplete = true;
-            return level.Rings.Count;
+            _isVisual = true;
         }
 
-        public int getRemainingRings()
+        public int GetPassedRings()
         {
-            if (currentRing.Current != null) return level.Rings.Count - getPasseedRings();
-            LevelComplete = true;
+            if (_currentRing.Current != null) return _level.Rings.IndexOf(_currentRing.Current);
+            IsLevelComplete = true;
+            return _level.Rings.Count;
+        }
+
+        public int GetRemainingRings()
+        {
+            if (_currentRing.Current != null) return _level.Rings.Count - GetPassedRings();
+            IsLevelComplete = true;
             return 0;
         }
 
-        public Vector3 getLocalRingPos(Vector3 planePos, Quaternion planeRot)
+        public Vector3 GetLocalRingPos(Vector3 planePos, Quaternion planeRot)
         {
-            return ringLoc.getLocalRingPos(currentRing.Current, planePos, planeRot);
+            return _ringLoc.getLocalRingPos(_currentRing.Current, planePos, planeRot);
         }
+
+        #endregion
     }
 }

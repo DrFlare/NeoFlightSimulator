@@ -22,7 +22,7 @@ namespace Simulator
 
         #region Functions
 
-        private void EndSimulation()
+        private static void EndSimulation()
         {
             SceneManager.LoadScene(Constants.MainMenuSceneName);
         }
@@ -33,21 +33,21 @@ namespace Simulator
 
         private void Start()
         {
-            var level = LevelLoader.loadLevel(context.levelName);
+            var level = LevelLoader.LoadLevel(context.levelName);
 
             foreach (var ringPos in level.Rings)
             {
                 ringObjects.Add(Instantiate(ring, ringPos.Pose.position, ringPos.Pose.rotation));
             }
 
-            planeController.Sim.setSceneObjects(ringObjects, scoreCounter);
-            new IndependentFlightSimulation(planeController.Sim).startTestSimulation();
+            planeController.Sim.SetSceneObjects(ringObjects, scoreCounter);
+            new IndependentFlightSimulation(planeController.Sim).StartTestSimulation();
         }
 
         private void Update()
         {
             // TODO: Transfer input handling to a unified input controller
-            if (Input.GetKeyDown(KeyCode.Escape) || planeController.Sim.LevelComplete)
+            if (Input.GetKeyDown(KeyCode.Escape) || planeController.Sim.IsLevelComplete)
                 EndSimulation();
         }
 

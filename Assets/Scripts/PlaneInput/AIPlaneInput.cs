@@ -5,55 +5,54 @@ namespace PlaneInput
 {
     public class AIPlaneInput : IPlaneInput
     {
-        private NeuralNet net;
-        private float[] outputs = { 0f, 0f, 0f, 0f };
+        private NeuralNet _net;
+        private float[] _outputs = { 0f, 0f, 0f, 0f };
 
         public AIPlaneInput()
         {
-            net = new NeuralNet();
+            _net = new NeuralNet();
         }
 
         public AIPlaneInput(string weightsPath)
         {
-            net = new NeuralNet(weightsPath);
+            _net = new NeuralNet(weightsPath);
         }
 
-        public void tick( Vector3 ringPos)
+        public void Tick( Vector3 ringPos)
         {
             float[] packed =
             {
                 ringPos.x, ringPos.y, ringPos.z
             };
 
-            outputs = net.forward(packed);
+            _outputs = _net.forward(packed);
         }
 
-        public float getHorizontal()
+        public float GetHorizontal()
         {
-            return outputs[2];
-            // return 0;
+            return _outputs[2];
         }
 
-        public float getVertical()
+        public float GetVertical()
         {
-            return outputs[0];
+            return _outputs[0];
         }
 
-        public float getRudder()
+        public float GetRudder()
         {
-            return outputs[1];
+            return _outputs[1];
         }
 
-        public float getThrust()
+        public float GetThrust()
         {
-            if (outputs.Length < 4)
+            if (_outputs.Length < 4)
             {
                 return 0;
             }
 
-            return outputs[3];
+            return _outputs[3];
         }
 
-        public NeuralNet Net => net;
+        public NeuralNet Net => _net;
     }
 }

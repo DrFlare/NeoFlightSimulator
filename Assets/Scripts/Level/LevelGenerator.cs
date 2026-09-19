@@ -7,24 +7,24 @@ namespace Level
 {
     public static class LevelGenerator
     {
-        public static void GenerateLevels(int levelCount, int ringDist, int ringDistVariance, float maxAngle, int ringCount, string prefix)
+        public static void GenerateLevels(int levelCount, int ringDist, int ringDistVariance, 
+            float maxAngle, int ringCount, string prefix)
         {
-            Vector3 position;
-            Quaternion rotation;
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             var lines = new List<string>();
 
-            for (int i = 0; i < levelCount; i++)
+            for (var i = 0; i < levelCount; i++)
             {
-                position = Vector3.zero;
-                rotation = Quaternion.identity;
+                var position = Vector3.zero;
+                var rotation = Quaternion.identity;
                 lines.Clear();
                 
-                for (int j = 0; j < ringCount; j++)
+                for (var j = 0; j < ringCount; j++)
                 {
                     sb.Clear();
 
-                    position += rotation * (Vector3.forward * Random.Range(ringDist - ringDistVariance, ringDist + ringDistVariance));
+                    position += rotation * (Vector3.forward * 
+                                            Random.Range(ringDist - ringDistVariance, ringDist + ringDistVariance));
                     if (j > 0)
                     {
                         var randomRotation = Random.rotationUniform;

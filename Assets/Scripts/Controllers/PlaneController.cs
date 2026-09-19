@@ -8,47 +8,61 @@ namespace Controllers
 {
     public class PlaneController : MonoBehaviour
     {
-        public SimulationContext context;
+        #region Constants
 
-        private IPlaneInput input;
+        private const int VelocityScale = 10;
+        private const int AngleScale = 10;
 
-        private const int VELOCITY_SCALE = 10;
-        private const int ANGLE_SCALE = 10;
-
-        public GameObject propeller;
-
-        public float initialVelocity = 0.1f;
-    
-        public float yawSpeed;
+        #endregion
         
-        public float pitchSpeed;
+        #region Fields
         
-        public float rollSpeed;
+        private IPlaneInput _input;
 
-        void Start()
+        #endregion
+
+        #region Serialize Fields
+        
+        [SerializeField] private SimulationContext context;
+        [SerializeField] private GameObject propeller;
+        [SerializeField] private float initialVelocity = 0.1f;
+        [SerializeField] private float yawSpeed;
+        [SerializeField] private float pitchSpeed;
+        [SerializeField] private float rollSpeed;
+
+        #endregion
+
+        #region Properties
+        
+        public PlaneSimulator Sim { get; private set; }
+
+        #endregion
+
+        #region Unity Functions
+
+        private void Start()
         {
-            input = context.inputType switch
+            _input = context.inputType switch
             {
                 InputType.Human => new HumanPlaneInput(),
                 InputType.AI => string.IsNullOrEmpty(context.neuralNetWeightsPath) ? new AIPlaneInput() : new AIPlaneInput(context.neuralNetWeightsPath),
                 _ => throw new ArgumentException()
             };
 
-            Level.Level level = LevelLoader.loadLevel(context.levelName);
+            Level.Level level = LevelLoader.LoadLevel(context.levelName);
 
             var pose = new Pose(gameObject.transform.position, gameObject.transform.rotation);
         
-            Sim = new PlaneSimulator(input, pose, (initialVelocity / VELOCITY_SCALE), yawSpeed / ANGLE_SCALE, pitchSpeed / ANGLE_SCALE, rollSpeed / ANGLE_SCALE, level);
+            Sim = new PlaneSimulator(_input, pose, (initialVelocity / VelocityScale), yawSpeed / AngleScale, pitchSpeed / AngleScale, rollSpeed / AngleScale, level);
         }
 
-        // Update is called once per frame
-        void FixedUpdate()
+        private void FixedUpdate()
         {
-            Sim.tick();
-            Sim.updateTransform(transform);
+            Sim.Tick();
+            Sim.UpdateTransform(transform);
             propeller.transform.Rotate(Vector3.right, 20);
         }
 
-        public PlaneSimulator Sim { get; private set; }
+        #endregion
     }
 }

@@ -5,37 +5,43 @@ namespace Simulator
 {
     public class IndependentFlightSimulation
     {
-        private bool running = false;
+        #region Fields
+        
+        private bool _isRunning;
+        private PlaneSimulator _simulator;
+        private int _iter = -1;
+        private int _numIter;
+        private readonly NeuralNet _net;
 
-        private PlaneSimulator simulator;
+        #endregion
 
-        private int iter = -1;
-
-        private int numIter;
-
-        private NeuralNet net = null;
+        #region Constructors
 
         public IndependentFlightSimulation(PlaneSimulator simulator)
         {
-            this.simulator = simulator;
+            _simulator = simulator;
         }
 
         public IndependentFlightSimulation(PlaneSimulator simulator, int numIter)
         {
-            this.simulator = simulator;
-            net = ((AIPlaneInput)simulator.Input).Net;
-            reset(numIter);
+            _simulator = simulator;
+            _net = ((AIPlaneInput)simulator.Input).Net;
+            Reset(numIter);
         }
 
-        public void startTestSimulation()
+        #endregion
+
+        #region Functions
+
+        public void StartTestSimulation()
         {
-            running = true;
-            if (numIter > 0)
+            _isRunning = true;
+            if (_numIter > 0)
             {
-                for (int i = 0; i < numIter; i++)
+                for (int i = 0; i < _numIter; i++)
                 {
-                    tick();
-                    if (simulator.LevelComplete)
+                    Tick();
+                    if (_simulator.IsLevelComplete)
                     {
                         break;
                     }
@@ -43,68 +49,70 @@ namespace Simulator
             }
         }
 
-        public void stopTestSimulation()
+        public void StopTestSimulation()
         {
-            running = false;
+            _isRunning = false;
         }
 
-        public void tick()
+        public void Tick()
         {
-            if (!running)
+            if (!_isRunning)
             {
                 return;
             }
 
-            simulator.tick();
+            _simulator.Tick();
 
-            if (net != null)
+            if (_net != null)
             {
-                networkStep();
+                NetworkStep();
             }
 
-            iter++;
-            if (numIter > 0 && iter >= numIter)
+            _iter++;
+            if (_numIter > 0 && _iter >= _numIter)
             {
-                stopTestSimulation();
+                StopTestSimulation();
             }
         }
 
-        public void reset(int numIter)
+        public void Reset(int numIter)
         {
-            this.numIter = numIter;
-            iter = 0;
-            simulator.reset();
+            this._numIter = numIter;
+            _iter = 0;
+            _simulator.Reset();
         }
 
-        private void networkStep()
+        private void NetworkStep()
         {
-            var planePos = simulator.Pose.position;
-            var planeRot = simulator.Pose.rotation;
-            var ringPos = simulator.CurrentRing.Current == null ? planePos : simulator.CurrentRing.Current.Pose.position;
-            var localRingPos = simulator.getLocalRingPos(planePos, planeRot);
+            var planePos = _simulator.Pose.position;
+            var planeRot = _simulator.Pose.rotation;
+            var ringPos = _simulator.CurrentRing.Current == null ? planePos : _simulator.CurrentRing.Current.Pose.position;
+            var localRingPos = _simulator.GetLocalRingPos(planePos, planeRot);
 
             float[] packed =
             {
                 localRingPos.x, localRingPos.y, localRingPos.z
             };
 
-            var outputs = net.forward(packed);
+            var outputs = _net.forward(packed);
 
             // forward gotov, idemo loss i backward
 
-            var nextPlaneRot = simulator.calculateNextRot(planeRot, outputs[0], outputs[1], outputs[2]);
+            var nextPlaneRot = _simulator.CalculateNextRot(planeRot, outputs[0], outputs[1], outputs[2]);
             var nextPlanePos =
-                simulator.calculateNextPos(planePos, nextPlaneRot.Item1, outputs.Length < 4 ? 0 : outputs[3]);
+                _simulator.CalculateNextPos(planePos, nextPlaneRot.Item1, outputs.Length < 4 ? 0 : outputs[3]);
             
-            var loss = net.loss(planePos, nextPlanePos.Item2, nextPlaneRot.Item2, ringPos, simulator.getRemainingRings());
+            var loss = _net.loss(planePos, nextPlanePos.Item2, nextPlaneRot.Item2, ringPos, _simulator.GetRemainingRings());
 
             // Debug.Log("loss = " + loss);
 
-            var dLdXYZ = net.backward(loss);
+            var dLdXYZ = _net.backward(loss);
 
             // BACKPROP GOTOV!!!!!!!!!!
             // OPTIM TIME
-            net.optimStep();
+            _net.optimStep();
         }
+
+        #endregion
     }
 }

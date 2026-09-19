@@ -34,6 +34,7 @@ namespace Controllers
         #endregion
 
         #region Functions
+        
         #region Panels
 
         public void OpenTrainModelPanel()
@@ -66,7 +67,7 @@ namespace Controllers
         {
             var aiTrainer = new AITrainer();
 
-            aiTrainer.startTrainingSimulation(int.Parse(epochInputField.text), int.Parse(framesInputField.text));
+            aiTrainer.StartTrainingSimulation(int.Parse(epochInputField.text), int.Parse(framesInputField.text));
 
             UpdateWeightLibrary();
             trainPanel.SetActive(false);
@@ -120,8 +121,8 @@ namespace Controllers
         {
             levelSelect.ClearOptions();
             testNetLevelSelect.ClearOptions();
-            levelSelect.AddOptions(LevelLoader.getLevelNames());
-            testNetLevelSelect.AddOptions(LevelLoader.getLevelNames());
+            levelSelect.AddOptions(LevelLoader.GetLevelNames());
+            testNetLevelSelect.AddOptions(LevelLoader.GetLevelNames());
             levelSelect.value = 0;
             testNetLevelSelect.value = 0;
         }
@@ -133,6 +134,7 @@ namespace Controllers
         }
 
         #endregion
+        
         #endregion
 
         #region Unity Functions
